@@ -1,15 +1,19 @@
 package com.rova.accountservice.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 
 import static com.rova.accountservice.util.Constants.DRIVER_CLASS_NAME;
 import static com.rova.accountservice.util.Constants.JDBC_H2_URL;
-
+@Configuration
+@RequiredArgsConstructor
 public class DataSourceConfig {
 
     @Primary
