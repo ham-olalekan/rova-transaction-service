@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rova</groupId>
-	<artifactId>account-service</artifactId>
+	<artifactId>transaction-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>account-service</name>
 	<description>Simple micro-service that manages bank accounts for customers</description>

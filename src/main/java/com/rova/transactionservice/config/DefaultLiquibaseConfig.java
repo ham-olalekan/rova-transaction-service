@@ -1,4 +1,4 @@
-package com.rova.accountservice.config;
+package com.rova.transactionservice.config;
 
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.RequiredArgsConstructor;

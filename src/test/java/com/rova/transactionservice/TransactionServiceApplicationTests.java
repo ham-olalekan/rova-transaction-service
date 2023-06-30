@@ -1,10 +1,10 @@
-package com.rova.accountservice;
+package com.rova.transactionservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AccountServiceApplicationTests {
+class TransactionServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
