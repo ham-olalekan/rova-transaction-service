@@ -1,7 +1,7 @@
 package com.rova.transactionservice.dto;
 
 import com.rova.transactionservice.dals.Transaction;
-import com.rova.transactionservice.util.enums.BalanceAction;
+import com.rova.transactionservice.enums.BalanceAction;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;

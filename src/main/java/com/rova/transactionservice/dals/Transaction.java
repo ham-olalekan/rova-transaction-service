@@ -1,6 +1,6 @@
 package com.rova.transactionservice.dals;
 
-import com.rova.transactionservice.util.enums.BalanceAction;
+import com.rova.transactionservice.enums.BalanceAction;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
