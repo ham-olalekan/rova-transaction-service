@@ -2,12 +2,11 @@ package com.rova.transactionservice.dals;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.util.StringUtils;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.UUID;
-
-import static com.rova.transactionservice.util.Constants.IAPPENDABLE_REF_SEPARATOR;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,17 +17,11 @@ public abstract class BaseEntity {
     @Column(nullable = false)
     private long id;
 
-    @Column(length = 64, nullable = false, updatable = false, unique = true)
-    private String reference;
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private Date createdAt;
 
-    @PrePersist
-    public void appendReference() {
-        if (!StringUtils.hasText(this.reference)) {
-            this.reference = UUID.randomUUID().toString().replaceAll("-", "");
-        }
-    }
-
-    public String getReference() {
-        return String.format("%s%s%s", this.id, IAPPENDABLE_REF_SEPARATOR, this.reference);
-    }
+    @Column(nullable = false)
+    @UpdateTimestamp
+    private Date updatedAt;
 }
