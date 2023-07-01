@@ -10,11 +10,12 @@ import javax.persistence.PrePersist;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static com.rova.transactionservice.util.Constants.IAPPENDABLE_REF_SEPARATOR;
-
 @Getter
 @Entity(name = "transactions")
 public class Transaction extends BaseEntity{
+
+    @Column(nullable = false)
+    private BigDecimal amount;
 
     @Column
     private BigDecimal balanceBefore;
@@ -45,9 +46,5 @@ public class Transaction extends BaseEntity{
         if (!StringUtils.hasText(this.reference)) {
             this.reference = UUID.randomUUID().toString().replaceAll("-", "");
         }
-    }
-
-    public String getReference() {
-        return String.format("%s%s%s",this.getId(), IAPPENDABLE_REF_SEPARATOR, this.reference);
     }
 }
