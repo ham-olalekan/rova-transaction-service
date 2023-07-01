@@ -13,8 +13,8 @@ CREATE TABLE wallets (
     currency VARCHAR(5) NOT NULL,
     user_id BIGINT NOT NULL,
 
-   INDEX idx_wallet_user_id user_id,
-   INDEX idx_wallet_account_number account_number,
-   CONSTRAINT pk_WALLETS_ID PRIMARY KEY (id),
-   CONSTRAINT FK_WALLETS_ON_CURRENCIES FOREIGN KEY (currency_id) REFERENCES currencies(id),
-)
+    INDEX idx_wallet_user_id (user_id),
+    INDEX idx_wallet_account_number (account_number),
+    CONSTRAINT pk_WALLETS_ID PRIMARY KEY (id),
+    CONSTRAINT FK_WALLETS_ON_CURRENCIES FOREIGN KEY (currency_id) REFERENCES currencies(id)
+);

@@ -12,9 +12,9 @@ CREATE TABLE transactions (
     user_id BIGINT NOT NULL,
     wallet_id BIGINT NOT NULL,
 
-   INDEX idx_trx_reference reference,
-   INDEX idx_trx_account_number account_number,
-   INDEX idx_trx_wallet_id wallet_id,
+   INDEX idx_trx_reference (reference),
+   INDEX idx_trx_account_number (account_number),
+   INDEX idx_trx_wallet_id (wallet_id),
    CONSTRAINT pk_TRANSACTION_ID PRIMARY KEY (id),
-   CONSTRAINT FK_TRANSACTION_ON_CURRENCIES FOREIGN KEY (currency_id) REFERENCES currencies(id),
-)
+   CONSTRAINT FK_TRANSACTION_ON_CURRENCIES FOREIGN KEY (currency_id) REFERENCES currencies(id)
+);
