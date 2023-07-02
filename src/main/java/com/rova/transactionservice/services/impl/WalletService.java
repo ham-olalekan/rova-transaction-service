@@ -5,16 +5,20 @@ import com.rova.transactionservice.dals.Transaction;
 import com.rova.transactionservice.dals.Wallet;
 import com.rova.transactionservice.dto.CreateWalletDto;
 import com.rova.transactionservice.dto.WalletDto;
+import com.rova.transactionservice.enums.IdempotentAction;
 import com.rova.transactionservice.enums.TransactionType;
+import com.rova.transactionservice.exceptions.DuplicateRequestException;
 import com.rova.transactionservice.exceptions.NotFoundException;
 import com.rova.transactionservice.repository.WalletsRepository;
 import com.rova.transactionservice.services.ICurrencyService;
 import com.rova.transactionservice.services.ITransactionService;
 import com.rova.transactionservice.services.IWalletService;
+import com.rova.transactionservice.services.IdempotencyService;
 import com.rova.transactionservice.util.Generators;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -30,10 +34,16 @@ public class WalletService implements IWalletService {
 
     private final ITransactionService transactionService;
 
+    private final IdempotencyService idempotencyService;
+
     @Override
     @Transactional
-    public WalletDto createWallet(long userId, CreateWalletDto createWalletDto) throws NotFoundException {
+    public WalletDto createWallet(long userId, CreateWalletDto createWalletDto) throws NotFoundException, DuplicateRequestException {
+        String key = createWalletDto.getHash(userId, IdempotentAction.CREATE_ACCOUNT);
+        String locked = idempotencyService.get(key);
+        if(StringUtils.hasText(locked)) throw new DuplicateRequestException("Duplicate request for account creation");
 
+        idempotencyService.lock(key);
         Currency currency = iCurrencyService
                 .findByCountryCodeAndCurrencyCode(createWalletDto.getCountryCode(), createWalletDto.getCurrencyCode())
                 .orElseThrow(() -> new NotFoundException("Unsupported country and currency code"));
@@ -59,12 +69,13 @@ public class WalletService implements IWalletService {
             createAccountCreationTransaction(createWalletDto.getAmount(), walletDto);
         }
         log.info("account creation of {} account for customer with id:[{}] successful", createWalletDto.getType(), userId);
+        idempotencyService.release(key);
         return WalletDto.fromModel(wallet);
     }
 
     private void createAccountCreationTransaction(BigDecimal amount, WalletDto walletDto) {
         if (amount.compareTo(BigDecimal.ZERO) < 1) {
-            log.debug("Terminating ");
+            log.debug("Terminating createAccountCreationTransaction");
             return;
         }
         Transaction transaction = new Transaction();

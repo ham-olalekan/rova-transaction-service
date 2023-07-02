@@ -43,6 +43,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ErrorResponseDto.build(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
+    @ExceptionHandler(DuplicateRequestException.class)
+    public ResponseEntity<?> DuplicateRequestException(DuplicateRequestException e) {
+        log.error("Duplicate request rejected :: ", e);
+        return ErrorResponseDto.build(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     public ResponseEntity<?> emptyResultDataAccessException(InvalidDataAccessApiUsageException e) {
         log.error("Empty result from data access :: ", e);
