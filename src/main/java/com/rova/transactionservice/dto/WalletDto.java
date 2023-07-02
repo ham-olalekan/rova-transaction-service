@@ -10,15 +10,21 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class WalletDto {
+
+    private long id;
     private String accountNumber;
     private BigDecimal ledgerBalance;
     private BigDecimal availableBalance;
     private String currency;
-    private long currency_id;
-    private long user_id;
+    private long currencyId;
+    private long userId;
 
     private String firstName;
     private String lastName;
+
+    private String Reference;
+
+    private String country;
 
     public static WalletDto fromModel(Wallet wallet) {
         WalletDto dto = new WalletDto();

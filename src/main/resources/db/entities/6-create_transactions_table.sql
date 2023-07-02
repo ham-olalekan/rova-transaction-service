@@ -3,6 +3,7 @@ CREATE TABLE transactions (
     account_number VARCHAR(10) NOT NULL,
     reference VARCHAR(64) NOT NULL UNIQUE,
     amount DECIMAL NOT NULL DEFAULT 0,
+    type VARCHAR(20) NOT NULL,
     balance_before DECIMAL NOT NULL DEFAULT 0,
     balance_after DECIMAL NOT NULL DEFAULT 0,
     action VARCHAR(20) NOT NULL,

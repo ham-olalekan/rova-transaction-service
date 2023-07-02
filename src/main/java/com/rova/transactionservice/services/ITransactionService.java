@@ -1,13 +1,17 @@
 package com.rova.transactionservice.services;
 
+import com.rova.transactionservice.dals.Transaction;
+import com.rova.transactionservice.dto.CreateTransactionDto;
 import com.rova.transactionservice.dto.TransactionDto;
 import com.rova.transactionservice.enums.TransactionStatus;
+import com.rova.transactionservice.exceptions.NotFoundException;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ITransactionService {
-    TransactionDto createTransaction();
+    TransactionDto createTransaction(long userId, CreateTransactionDto createTransactionDto) throws NotFoundException;
 
-    Page<TransactionDto> getUserTransactions(long userId, int page, int size, List<TransactionStatus> statuses);
+    TransactionDto save(Transaction transaction);
+
 }
