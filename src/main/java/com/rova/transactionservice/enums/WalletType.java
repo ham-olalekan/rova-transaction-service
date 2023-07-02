@@ -1,4 +1,4 @@
-package com.rova.transactionservice.util.enums;
+package com.rova.transactionservice.enums;
 
 public enum WalletType {
    SAVINGS, CURRENT

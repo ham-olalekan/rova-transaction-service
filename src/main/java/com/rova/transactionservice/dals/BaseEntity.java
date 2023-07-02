@@ -4,9 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.Reference;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -24,4 +27,14 @@ public abstract class BaseEntity {
     @Column(nullable = false)
     @UpdateTimestamp
     private Date updatedAt;
+
+    @Column(length = 64, nullable = false, updatable = false, unique = true)
+    private String reference;
+
+    @PrePersist
+    public void appendReference(){
+        if (!StringUtils.hasText(this.reference)) {
+            this.reference = UUID.randomUUID().toString().replaceAll("-", "");
+        }
+    }
 }

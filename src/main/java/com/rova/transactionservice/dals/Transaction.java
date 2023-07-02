@@ -1,20 +1,25 @@
 package com.rova.transactionservice.dals;
 
-import com.rova.transactionservice.util.enums.BalanceAction;
+import com.rova.transactionservice.enums.BalanceAction;
+import com.rova.transactionservice.enums.TransactionType;
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrePersist;
 import java.math.BigDecimal;
-import java.util.UUID;
-
-import static com.rova.transactionservice.util.Constants.IAPPENDABLE_REF_SEPARATOR;
 
 @Getter
+@Setter
 @Entity(name = "transactions")
 public class Transaction extends BaseEntity{
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @Column(nullable = false)
+    private TransactionType type;
 
     @Column
     private BigDecimal balanceBefore;
@@ -32,22 +37,21 @@ public class Transaction extends BaseEntity{
     private String currency;
 
     @Column(nullable = false, updatable = false)
-    private long currency_id;
+    private long currencyId;
 
     @Column(nullable = false, updatable = false)
-    private long user_id;
+    private long userId;
 
-    @Column(length = 64, nullable = false, updatable = false, unique = true)
-    private String reference;
+    @Column(updatable = false)
+    private Long walletId;
 
     @PrePersist
-    public void appendReference() {
-        if (!StringUtils.hasText(this.reference)) {
-            this.reference = UUID.randomUUID().toString().replaceAll("-", "");
-        }
+    public void setBalanceAction() {
+        this.action = getBalanceAction();
     }
 
-    public String getReference() {
-        return String.format("%s%s%s",this.getId(), IAPPENDABLE_REF_SEPARATOR, this.reference);
+    private BalanceAction getBalanceAction(){
+        if(this.type == TransactionType.ACCOUNT_OPENING) return BalanceAction.CREDIT;
+        return BalanceAction.DEBIT;
     }
 }

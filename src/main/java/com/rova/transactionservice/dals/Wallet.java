@@ -1,12 +1,15 @@
 package com.rova.transactionservice.dals;
 
+import com.rova.transactionservice.enums.WalletType;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.math.BigDecimal;
 
 @Getter
+@Setter
 @Entity(name = "wallets")
 public class Wallet extends BaseEntity{
 
@@ -23,14 +26,17 @@ public class Wallet extends BaseEntity{
     private String currency;
 
     @Column(nullable = false, updatable = false)
-    private long currency_id;
+    private long currencyId;
 
     @Column(nullable = false, updatable = false)
-    private long user_id;
+    private long userId;
 
     @Column(nullable = false, length = 50)
     private String firstName;
 
     @Column(nullable = false, length = 50)
     private String lastName;
+
+    @Column(nullable = false, length = 10)
+    private WalletType type;
 }
