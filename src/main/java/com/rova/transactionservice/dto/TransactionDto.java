@@ -28,4 +28,8 @@ public class TransactionDto {
         BeanUtils.copyProperties(transaction, dto);
         return dto;
     }
+
+    public static Object fromModel(Object o) {
+        return fromModel((Transaction) o);
+    }
 }
