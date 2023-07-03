@@ -37,8 +37,9 @@ public class WalletController {
     }
 
     @GetMapping("/{reference}/balance")
-    public ResponseDto<WalletDto> handleAccountBalance(@PathVariable String reference) throws NotFoundException {
-        WalletDto dto = walletService.getWalletBalance(1234, reference);
+    public ResponseDto<WalletDto> handleAccountBalance(Authentication authentication,@PathVariable String reference) throws NotFoundException {
+        long userId = IUserDetails.getId(authentication);
+        WalletDto dto = walletService.getWalletBalance(userId, reference);
         return ResponseDto.wrapSuccessResult(dto, "account balance fetched successfully");
     }
 }
