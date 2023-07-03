@@ -4,11 +4,15 @@ import com.rova.transactionservice.config.web.AntMatchersEndpoints;
 import com.rova.transactionservice.config.web.CustomAccessDeniedHandler;
 import com.rova.transactionservice.config.web.CustomBasicAuthenticationEntryPoint;
 import com.rova.transactionservice.config.web.JwtTokenFilter;
+import com.rova.transactionservice.security.IPasswordEncoder;
+import com.rova.transactionservice.services.impl.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -21,6 +25,8 @@ import java.util.Stack;
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final IPasswordEncoder passwordEncoder;
+
     private final AntMatchersEndpoints antMatchersPermittedEndpoints;
 
     private final CustomBasicAuthenticationEntryPoint customBasicAuthenticationEntryPoint;
@@ -28,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private final JwtTokenFilter jwtTokenFilter;
+
+    private final IUserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -77,5 +85,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 }

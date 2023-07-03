@@ -13,6 +13,8 @@ public class Constants {
 
     public static final String TYPE = "type";
 
+    public static final String BASIC_AUTHS = "basic_auths";
+
     public static class EntityColumns {
 
         public final static String ID = "id";

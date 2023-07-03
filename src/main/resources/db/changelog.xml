@@ -9,4 +9,6 @@
     <include file="db/entities/4-insert_countries.sql"/>
     <include file="db/entities/5-create_wallet_table.sql"/>
     <include file="db/entities/6-create_transactions_table.sql"/>
+    <include file="db/entities/7-create_basic_auth_table.sql"/>
+    <include file="db/entities/7-insert_basic_auth_table.sql"/>
 </databaseChangeLog>
