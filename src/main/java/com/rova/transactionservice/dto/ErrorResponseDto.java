@@ -36,4 +36,16 @@ public class ErrorResponseDto {
         errorResponseDto.getErrors().addAll(errors);
         return ResponseEntity.status(status).body(errorResponseDto);
     }
+
+    public static ResponseEntity<Object> buildPermissionError(HttpStatus status, List<String> errors) {
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto("PERMISSION_ERROR");
+        errorResponseDto.getErrors().addAll(errors);
+        return ResponseEntity.status(status).body(errorResponseDto);
+    }
+
+    public void addError(String message) {
+        if (this.errors == null)
+            this.errors = new HashSet<>();
+        this.errors.add(message);
+    }
 }
