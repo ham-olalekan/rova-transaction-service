@@ -15,7 +15,7 @@ import java.util.Optional;
 @Setter
 @NoArgsConstructor
 public class CreateWalletDto implements IdempotentDto{
-    @NotEmpty(message = "Amount is required")
+
     @DecimalMin(value = "0", message = "Amount must be greater than or equal to 0")
     @Digits(integer = 10, fraction = 2, message = "Invalid amount format")
     private BigDecimal amount;
