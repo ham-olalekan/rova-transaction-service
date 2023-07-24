@@ -7,12 +7,10 @@ import com.rova.transactionservice.dto.WalletDto;
 import com.rova.transactionservice.exceptions.DuplicateRequestException;
 import com.rova.transactionservice.exceptions.NotFoundException;
 import com.rova.transactionservice.services.IWalletService;
-import com.rova.transactionservice.services.IdempotencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

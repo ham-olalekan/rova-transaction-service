@@ -5,7 +5,7 @@ public enum TransactionType {
 
     BANK_TRANSFER,
 
-    PEER_2_PEER
+    PEER_2_PEER,
 
-
+    ACCOUNT_FUNDING;
 }

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.PrePersist;
 import java.math.BigDecimal;
 
+import static com.rova.transactionservice.enums.TransactionType.ACCOUNT_FUNDING;
+
 @Getter
 @Setter
 @Entity(name = "transactions")
@@ -50,8 +52,8 @@ public class Transaction extends BaseEntity{
         this.action = getBalanceAction();
     }
 
-    private BalanceAction getBalanceAction(){
-        if(this.type == TransactionType.ACCOUNT_OPENING) return BalanceAction.CREDIT;
+    public BalanceAction getBalanceAction(){
+        if(this.type == TransactionType.ACCOUNT_OPENING || this.type == ACCOUNT_FUNDING) return BalanceAction.CREDIT;
         return BalanceAction.DEBIT;
     }
 }

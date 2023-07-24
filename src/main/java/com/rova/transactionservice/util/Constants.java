@@ -15,6 +15,8 @@ public class Constants {
 
     public static final String BASIC_AUTHS = "basic_auths";
 
+    public final static String IAPPENDABLE_REF_SEPARATOR = "_";
+
     public static class EntityColumns {
 
         public final static String ID = "id";
@@ -24,5 +26,11 @@ public class Constants {
         public final static String PHONE_NO = "phone_no";
 
         public final static String USER_ID = "user_id";
+    }
+
+    public static class LockPrefix {
+        public final static String ACCOUNT_CREDIT = "ACCOUNT_CREDIT";
+
+        public final static String ACCOUNT_DEBIT = "ACCOUNT_DEBIT";
     }
 }

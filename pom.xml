@@ -14,7 +14,7 @@
 	<name>account-service</name>
 	<description>Simple micro-service that manages bank accounts for customers</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -68,6 +68,10 @@
 			<artifactId>guava</artifactId>
 			<version>31.1-jre</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -130,6 +134,11 @@
 			<artifactId>h2</artifactId>
 			<version>1.4.200</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<version>3.16.1</version> <!-- Replace with the latest version available -->
 		</dependency>
 	</dependencies>
 
