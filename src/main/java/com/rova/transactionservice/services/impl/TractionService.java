@@ -41,8 +41,6 @@ public class TractionService implements ITransactionService {
 
     private final ApplicationEventPublisher publisher;
 
-    private final IWalletService walletService;
-
     @Override
     public TransactionDto createTransaction(long userId, CreateTransactionDto createTransactionDto) throws NotFoundException {
         Currency currency = iCurrencyService
